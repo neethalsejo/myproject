@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    Welcome to ABC HOSPITALS PVT.LTD.....We Care With Love...
+{% endblock %}
+
+{% block content %}
+
+    <div class="container" id="grid-row">
+    <div class="row">
+        <div class="col-md-6">
+
+     <form  method="POST" class="mb-3 shadow">
+         {% csrf_token %}
+            <div class="form-group" align="center">
+                <h2>Appointment Details</h2>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> Patient Name: {{task1.pname}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> Age:   {{task1.age}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> Gender:   {{task1.gender}}</h5>
+        </div><br>
+          <div class="form-group" align="left">
+             <h5> Phone Number:   {{task1.phone}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> E-mail Address:   {{task1.email}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> Branch  Name:   {{task1.branch}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h5> Diseas:   {{task1.diseas}}</h5>
+        </div><br>
+         <div class="form-group" align="left">
+             <h4> Doctor's Name:   {{task1.dname}}</h4>
+        </div><br>
+         <div class="form-group" align="left">
+             <h4> Patient Name:   {{task1.appdate}}</h4>
+        </div><br>
+         <div>
+         <a href="{% url 'taskapp:print' %}" class="btn btn-secondary btn-block my_custom_button" style="margin:10px 0;float:right" >PRINT</a>
+         </div>
+     </form>
+ {% endblock %}

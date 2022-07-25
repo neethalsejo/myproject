@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155 }}
+    {% else %}
+        Welcome to ABC HOSPITALS PVT.LTD.....We Care With Love...
+    {% endif %}
+{% endblock %}
+{% block titile %}
+    {% if category %}
+        ABC Hospital {{category.branch}}
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if category %}
+    <div>
+        <div class="row my_row_class">
+            <div class="mx_auto">
+            <p><a href="{% url 'taskapp:detail' %}"></a></p>
+        </div>
+            </div>
+    </div>
+{% endif %}
+<div class="mx_auto" style="height:500;width:1250">
+    {% if category %}
+        <img  class="my_image" src="{{category.image.url}}" alt="{{category.branch}}" height="750px" width="1250px">
+</div>
+<br>
+    <div>
+        <div class="shadow card">
+           <div class="card-body">
+              <h3 class="card-titile" align="center">{{category.branch}}</h3>
+               <p><b>{{category.description}}</b></p>
+               <p><b>{{category.district}}</b></p><br>
+               <p><b>Doctors Available</b></p><br>
+               <p><b>{{category.pediatrician}}</b></p><br>
+               <p><b>{{category.urologist}}</b></p><br>
+               <p><b>{{category.physician}}</b></p><br>
+               <p><b>{{category.gynaecologist}}</b></p><br>
+               <p><b>{{category.ent}}</b></p>
+
+
+           </div>
+
+    {% else %}
+        <div style="width:1125px;height:500px">
+            <img class="my_image my_image_padding" src="{% static 'img/banner.png '%}" alt="Our products" style="width:1250px;height:500px" >
+        </div>
+<br>
+<div>
+    <h1 class="text-center my_title">We Care With Love....</h1>
+    <p class="text-justify">
+It will helps the designer plan where the content will sit. It helps in creating drafts of the content on the pages of the website. It originates from the Latin text but is seen as gibberish.
+
+Sometimes, the reader gets distracted while creating or working on the website. That’s why this language is important.
+
+This tool makes the work easier for the webmaster.
+
+How Lorem Ipsum Can Be Used?
+</p>
+</div>
+{% endif %}
+{% endblock %}

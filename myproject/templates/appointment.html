@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+        {{ hospital_list.description|truncatewords:155 }}
+
+        Welcome to ABC HOSPITALS PVT.LTD.....We Care With Love...
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+     <form  action="{% url 'taskapp:appointment' %}" method="POST" class="mb-3 shadow">
+         {% csrf_token %}
+            <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Enter patient name" value="{{user.username}}" >
+        </div><br>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="pname" placeholder="Enter patient name">
+        </div><br>
+        <div class="form-group">
+            <input type="text" class="form-control" name="age" placeholder="Age">
+        </div><br>
+         <div class="form-group">
+             <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="gender" id="male" value="male">
+                 <label class="form-check-label" for="male">Male</label>
+             </div>
+             <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="gender" id="female" value="female">
+                 <label class="form-check-label" for="female">Female</label>
+             </div>
+         </div>
+         <div class="form-group">
+            <input type="text" class="form-control" name="phone" placeholder="Phone Number">
+        </div><br>
+         <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email Address">
+        </div>
+         <div class="form-group">
+            <input type="text" class="form-control" name="address" placeholder= "Enter the Address">
+        </div>
+         <div class="row" style="margin:10px 0;">
+             <div class="col">
+                <div class="form-group">Branch:
+                    <select name = "branch"  class="branch_select" onclick="{% url 'taskapp:doctor' %}" >
+                        <option value = ""  selected>Choose Branch</option>
+                     {% for hospital in hospital_list %}
+                        <option value = "{{hospital.branch}}" id="{{hospital.pk}}" >{{hospital.branch}}</option>
+                     {% endfor %}
+                    </select>
+                </div>
+             </div>
+              <div class="col">
+                  <div class="form-group">Doctors:
+                      <select name = "dname" class="show" >
+                        <option value = ""  selected>Choose doctors</option>
+                      </select>
+                      <div ></div>
+                  </div>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                  <script type="text/javascript">
+                  $(document).ready(function(e){
+                      $('.branch_select').change(function(e){
+                        var bid = $(this).find(':selected')[0].id;
+                        $.ajax({
+                                type:"GET",
+                                url: "ajaxq",
+                                dataType: "json",
+                                data:{ bid: bid },
+                                success:function(out){
+                                $('.show').html('<option selected>Choose doctors</option><option value = "'+out.pediatrician+'">'+out.pediatrician+'</option><option value = "'+out.urologist+'">'+out.urologist+'</option><option value = "'+out.physician+'">'+out.physician+'</option><option value = "'+out.gynaecologist+'">'+out.gynaecologist+'</option><option value = "'+out.ent+'">'+out.ent+'</option>')
+                                },});
+
+                        e.preventDefault();
+                        });
+                  });
+
+                </script>
+              </div>
+        </div>
+         <div class="form-group">
+            <input type="text" class="form-control" name="diseas" placeholder="Diseas">
+        </div>
+         <div class="form-group">
+            <input type="date" class="form-control" name="appdate" placeholder="Enter Date">
+             </div>
+         <div class="form-group">
+             <a href="{% url 'taskapp:cancel' %}" class="btn btn-danger btn-block" style="margin:10px 0;float:right" >CANCEL</a>
+             <input type="submit" value="BOOK APPOINTMENT" class="btn btn-success" style="margin:10px 0; float:right;" >
+
+         </div>
+        </form>
+{% endblock %}
